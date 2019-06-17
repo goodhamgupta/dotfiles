@@ -494,7 +494,7 @@ call plug#begin('~/.vim/plugged')
 
   "Search, Explore and Edit files like Sublime Text
   Plug 'dyng/ctrlsf.vim'
-
+  nmap <S-P> <Plug>CtrlSFPrompt
 call plug#end()
 
 set number
@@ -513,6 +513,3 @@ inoremap <S-Down> <Esc>:m+<CR>
 "Color scheme for vim in tmux"
 set background=dark
 set t_Co=256
-
-"File search like Sublime"
-nmap <S-P> <Plug>CtrlSFPrompt
