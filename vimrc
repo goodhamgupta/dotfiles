@@ -499,7 +499,7 @@ call plug#end()
 
 set number
 colorscheme materialbox
-set guifont=RobotoMono:h35
+set guifont=RobotoMono:h28
 
 "Execute current python file using F2 key"
 autocmd FileType python nnoremap <buffer> <F2> :exec '!python3' shellescape(@%, 1)<cr>
@@ -513,3 +513,6 @@ inoremap <S-Down> <Esc>:m+<CR>
 "Color scheme for vim in tmux"
 set background=dark
 set t_Co=256
+
+"Use sytem clipboard by default"
+set clipboard=unnamed
