@@ -495,6 +495,13 @@ call plug#begin('~/.vim/plugged')
   "Search, Explore and Edit files like Sublime Text
   Plug 'dyng/ctrlsf.vim'
   nmap <S-P> <Plug>CtrlSFPrompt
+
+  "Plugin for json syntax highlighting and format
+  Plug 'elzr/vim-json'
+
+  "Plugin for hive syntax
+  Plug 'vickenty/vim-hive'
+
 call plug#end()
 
 set number
@@ -505,10 +512,10 @@ set guifont=RobotoMono:h28
 autocmd FileType python nnoremap <buffer> <F2> :exec '!python3' shellescape(@%, 1)<cr>
 
 "Move lines up/down faster using Shift + Arrow keys"
-nnoremap <S-Up> :m-2<CR>
-nnoremap <S-Down> :m+<CR>
-inoremap <S-Up> <Esc>:m-2<CR>
-inoremap <S-Down> <Esc>:m+<CR>
+nnoremap <C-S-Up> :m-2<CR>
+nnoremap <C-S-Down> :m+<CR>
+inoremap <C-S-Up> <Esc>:m-2<CR>
+inoremap <C-S-Down> <Esc>:m+<CR>
 
 "Color scheme for vim in tmux"
 set background=dark
@@ -516,3 +523,6 @@ set t_Co=256
 
 "Use sytem clipboard by default"
 set clipboard=unnamed
+
+"Map jj as escape
+inoremap jj <ESC>
