@@ -55,8 +55,8 @@ set autoread
 
 " With a map leader it's possible to do extra key combinations
 " like <leader>w saves the current file
-let mapleader = ","
-let g:mapleader = ","
+let mapleader = ";"
+let g:mapleader = ";"
 
 " Fast saving
 nmap <leader>w :w!<cr>
@@ -464,6 +464,9 @@ call plug#begin('~/.vim/plugged')
   Plug 'elixir-lang/vim-elixir'
   Plug 'vim-python/python-syntax'
 
+  "Linter for python
+  Plug 'nvie/vim-flake8'
+
   "Fonts for vim"
   Plug 'powerline/powerline-fonts'
 
@@ -494,13 +497,20 @@ call plug#begin('~/.vim/plugged')
 
   "Search, Explore and Edit files like Sublime Text
   Plug 'dyng/ctrlsf.vim'
-  nmap <S-P> <Plug>CtrlSFPrompt
+  vmap <F3> <Plug>CtrlSFVwordExec
 
   "Plugin for json syntax highlighting and format
   Plug 'elzr/vim-json'
 
   "Plugin for hive syntax
   Plug 'vickenty/vim-hive'
+
+  "Plugin for autoformat support
+  Plug 'Chiel92/vim-autoformat'
+  noremap <F4> :Autoformat<CR>
+
+  "Plugin for python format
+  Plug 'ambv/black'
 
 call plug#end()
 
@@ -510,6 +520,12 @@ set guifont=RobotoMono:h28
 
 "Execute current python file using F2 key"
 autocmd FileType python nnoremap <buffer> <F2> :exec '!python3' shellescape(@%, 1)<cr>
+
+"Execute Black formatter for python files
+autocmd FileType python nnoremap <buffer> <F4> :Black<CR>
+
+"Execute `mix format` for elixir projects
+autocmd FileType elixir nnoremap <buffer> <F4> :exec '!mix format' shellescape(@%, 1)<CR>
 
 "Move lines up/down faster using Shift + Arrow keys"
 nnoremap <C-S-Up> :m-2<CR>
