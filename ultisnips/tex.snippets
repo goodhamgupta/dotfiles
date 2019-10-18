@@ -54,7 +54,7 @@ snippet table "Table environment" b
 endsnippet
 
 snippet fig "Figure environment" b
-\begin{figure}[${1:htpb}]
+\begin{figure}[${1:H}]
 	\centering
 	${2:\includegraphics[width=0.8\textwidth]{$3}}
 	\caption{${4:$3}}
@@ -80,9 +80,24 @@ snippet desc "Description" b
 \end{description}
 endsnippet
 
+snippet sec "Section" b
+\section{$1}
+\begin{itemize}
+	\item $0
+\end{itemize}
+endsnippet
+
+snippet subs "Sub Section" b
+\subsection{$1}
+\begin{itemize}
+	\item $0
+\end{itemize}
+endsnippet
+
 snippet it "Item" b
 \item $0
 endsnippet
+
 snippet pac "Package" b
 \usepackage[${1:options}]{${2:package}}$0
 endsnippet
