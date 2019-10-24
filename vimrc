@@ -277,7 +277,7 @@ au BufReadPost * if line("'\"") > 1 && line("'\"") <= line("$") | exe "normal! g
 set laststatus=2
 
 " Format the status line
-set statusline=\ %{HasPaste()}%F%m%r%h\ %w\ \ CWD:\ %r%{getcwd()}%h\ \ \ Line:\ %l\ \ Column:\ %c
+set statusline=\ %{HasPaste()}%F%m%r%h\ %w\ \ CWD:\ %r%{getcwd()}\ \ \ Line:\ %l\ \ Column:\ %c
 
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -434,6 +434,8 @@ augroup filetypedetect
   au! BufRead,BufNewFile *.csv,*.dat    setfiletype csv
 augroup END
 
+set runtimepath^=~/.vim/bundle/ctrlp.vim
+
 call plug#begin('~/.vim/plugged')
   Plug 'lervag/vimtex'
   let g:tex_flavor='latex'
@@ -511,6 +513,13 @@ call plug#begin('~/.vim/plugged')
 
   "Plugin for python format
   Plug 'ambv/black'
+
+  "Plugin vim-airline for themes
+  Plug 'vim-airline/vim-airline'
+  Plug 'vim-airline/vim-airline-themes'
+
+  "Plugin for git in vim
+  Plug 'tpope/vim-fugitive'
 
 call plug#end()
 
