@@ -1,0 +1,336 @@
+"""" Enable Vundle: vim plugin manager
+
+" required before Vundle initialization
+" set nocompatible        " disable compatibility mode with vi " filetype off            " disable filetype detection (but re-enable later, see below)
+
+" set the runtime path to include Vundle, and initialize
+" set rtp+=~/.vim/bundle/Vundle.vim
+" call vundle#begin()
+" Plugin 'VundleVim/Vundle.vim'
+" Plugin 'wting/rust.vim' " enable syntax highlighting for rust
+" call vundle#end()
+
+
+"""" Basic Behavior
+set number              " show line numbers
+set wrap                " wrap lines
+set encoding=utf-8      " set encoding to UTF-8 (default was "latin1")
+set mouse=a             " enable mouse support (might not work well on Mac OS X)
+set wildmenu            " visual autocomplete for command menu
+set lazyredraw          " redraw screen only when we need to
+set showmatch           " highlight matching parentheses / brackets [{()}]
+set laststatus=2        " always show statusline (even with only single window)
+set ruler               " show line and column number of the cursor on right side of statusline
+set visualbell          " blink cursor on error, instead of beeping
+set backspace=indent,eol,start
+
+
+"""" Key Bindings
+
+" move vertically by visual line (don't skip wrapped lines)
+nmap j gj
+nmap k gk
+let mapleader = ";"
+let g:mapleader = ";"
+
+" Fast save
+nmap <leader>w :w!<cr>
+
+" Don't redraw while executing macros (good performance config)
+set lazyredraw 
+
+" For regular expressions turn magic on
+set magic
+
+" Show matching brackets when text indicator is over them
+set showmatch 
+" How many tenths of a second to blink when matching brackets
+set mat=2
+
+" No annoying sound on errors
+set noerrorbells
+set novisualbell
+set t_vb=
+set tm=500
+
+" Set utf8 as standard encoding and en_US as the standard language
+set encoding=utf8
+
+" Use Unix as the standard file type
+set ffs=unix,dos,mac
+
+
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" => Files, backups and undo
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" Turn backup off, since most stuff is in SVN, git et.c anyway...
+set nobackup
+set nowb
+set noswapfile
+
+
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" => Text, tab and indent related
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" Use spaces instead of tabs
+set expandtab
+
+" Be smart when using tabs ;)
+set smarttab
+
+" 1 tab == 4 spaces
+set shiftwidth=4
+set tabstop=4
+
+" Linebreak on 500 characters
+set lbr
+set tw=500
+
+set ai "Auto indent
+set si "Smart indent
+set wrap "Wrap lines
+
+
+""""""""""""""""""""""""""""""
+" => Visual mode related
+""""""""""""""""""""""""""""""
+" Visual mode pressing * or # searches for the current selection
+" Super useful! From an idea by Michael Naumann
+vnoremap <silent> * :<C-u>call VisualSelection('', '')<CR>/<C-R>=@/<CR><CR>
+vnoremap <silent> # :<C-u>call VisualSelection('', '')<CR>?<C-R>=@/<CR><CR>
+
+
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" => Moving around, tabs, windows and buffers
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" Map <Space> to / (search) and Ctrl-<Space> to ? (backwards search)
+map <space> /
+map <c-space> ?
+
+" Disable highlight when <leader><cr> is pressed
+map <silent> <leader><cr> :noh<cr>
+
+" Useful mappings for managing tabs
+map <leader>tn :tabnew<cr>
+map <leader>to :tabonly<cr>
+map <leader>tc :tabclose<cr>
+map <leader>tm :tabmove 
+map <leader>t<leader> :tabnext 
+
+" Let 'tl' toggle between this and the last accessed tab
+let g:lasttab = 1
+nmap <Leader>tl :exe "tabn ".g:lasttab<CR>
+au TabLeave * let g:lasttab = tabpagenr()
+
+
+" Opens a new tab with the current buffer's path
+" Super useful when editing files in the same directory
+map <leader>te :tabedit <c-r>=expand("%:p:h")<cr>/
+
+" Switch CWD to the directory of the open buffer
+map <leader>cd :cd %:p:h<cr>:pwd<cr>
+
+" Specify the behavior when switching between buffers 
+try
+  set switchbuf=useopen,usetab,newtab
+  set stal=2
+catch
+endtry
+
+" Remap VIM 0 to first non-blank character
+map 0 ^
+
+" Delete trailing white space on save, useful for Python and CoffeeScript ;)
+func! DeleteTrailingWS()
+  exe "normal mz"
+  %s/\s\+$//ge
+  exe "normal `z"
+endfunc
+autocmd BufWrite *.py :call DeleteTrailingWS()
+autocmd BufWrite *.coffee :call DeleteTrailingWS()
+
+"""" Vim Appearance
+
+" put colorscheme files in ~/.vim/colors/
+colorscheme desert " good colorschemes: murphy, slate, molokai, badwolf, solarized
+
+" use filetype-based syntax highlighting, ftplugins, and indentation
+syntax enable
+filetype plugin indent on
+
+
+"""" Tab settings
+
+set tabstop=4           " width that a <TAB> character displays as
+set expandtab           " convert <TAB> key-presses to spaces
+set shiftwidth=4        " number of spaces to use for each step of (auto)indent
+set softtabstop=4       " backspace after pressing <TAB> will remove up to this many spaces
+
+set autoindent          " copy indent from current line when starting a new line
+set smartindent         " even better autoindent (e.g. add indent after '{')
+
+
+"""" Search settings
+
+set incsearch           " search as characters are entered
+set hlsearch            " highlight matches
+
+
+"""" Miscellaneous settings that might be worth enabling
+
+"set cursorline         " highlight current line
+"set background=dark    " configure Vim to use brighter colors
+"set autoread           " autoreload the file in Vim if it has been changed outside of Vim
+
+"Useful for saving read-only files
+command W w !sudo tee % > /dev/null
+
+set runtimepath^=~/.vim/bundle/ctrlp.vim
+
+if has("autocmd")
+  au BufReadPost * if line("'\"") > 1 && line("'\"") <= line("$") | exe "normal! g'\"" | endif
+endif
+
+call plug#begin('~/.vim/plugged')
+  Plug 'lervag/vimtex'
+  let g:tex_flavor='latex' 
+  let g:vimtex_quickfix_mode=0
+  set conceallevel=1    
+  let g:vimtex_view_method='skim' 
+  let g:tex_conceal='abdmgs'
+
+  "Ultisnips to create the snippets for the latex documents"
+
+  Plug 'sirver/ultisnips'
+  let g:UltiSnipsExpandTrigger = '<tab>'
+  let g:UltiSnipsJumpForwardTrigger = '<tab>'
+  let g:UltiSnipsJumpBackwardTrigger = '<S-Tab>'
+  let g:UltiSnipsSnippetDirectories=["/home/goodhamgupta/ultisnips", "UltiSnips"]
+  augroup ultisnips_no_auto_expansion
+    au!
+    au VimEnter * au! UltiSnips_AutoTrigger
+  augroup END
+
+  Plug 'vim-python/python-syntax'
+
+  "Linter for python
+  Plug 'nvie/vim-flake8'
+
+  "Fonts for vim"
+  Plug 'powerline/powerline-fonts'
+
+  "vim-tmux for navigation"
+  Plug 'christoomey/vim-tmux-navigator'
+  "Key-mappings to swtich fast in tmux"
+  nnoremap <silent> <c-h> :TmuxNavigateLeft<cr>
+  nnoremap <silent> <c-j> :TmuxNavigateDown<cr>
+  nnoremap <silent> <c-k> :TmuxNavigateUp<cr>
+  nnoremap <silent> <c-l> :TmuxNavigateRight<cr>
+
+  "NERDTree for directory and file browsing"
+  Plug 'scrooloose/nerdtree'
+  map <C-n> :NERDTreeToggle<CR>
+
+  "Plugin for fuzzy search"
+  Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --no-bash' }
+  Plug 'junegunn/fzf.vim'
+  nnoremap <silent> <c-p> :Files<CR>
+  let $FZF_DEFAULT_COMMAND = 'ag --hidden --ignore .git -l -g ""'
+
+  "Programming language syntax for vim"
+  Plug 'elixir-lang/vim-elixir'
+  Plug 'vim-python/python-syntax'
+
+  "Linter for python
+  Plug 'nvie/vim-flake8'
+
+  "Fonts for vim"
+  Plug 'powerline/powerline-fonts'
+
+  "vim-tmux for navigation"
+  Plug 'christoomey/vim-tmux-navigator'
+  "Key-mappings to swtich fast in tmux"
+  nnoremap <silent> <c-h> :TmuxNavigateLeft<cr>
+  nnoremap <silent> <c-j> :TmuxNavigateDown<cr>
+  nnoremap <silent> <c-k> :TmuxNavigateUp<cr>
+  nnoremap <silent> <c-l> :TmuxNavigateRight<cr>
+
+  "NERDTree for directory and file browsing"
+  Plug 'scrooloose/nerdtree'
+  map <C-n> :NERDTreeToggle<CR>
+  autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTree") && b:NERDTree.isTabTree()) | q | endif
+  let g:NERDTreeDirArrowExpandable = '▸'
+  let g:NERDTreeDirArrowCollapsible = '▾' 
+
+  "Golden-ratio helps resize current window automatically"
+  Plug 'roman/golden-ratio'
+
+  "Markdown plugin"
+  Plug 'godlygeek/tabular'
+  Plug 'plasticboy/vim-markdown' 
+  let g:vim_markdown_folding_disabled = 1
+  let g:vim_markdown_math = 1
+  let g:vim_markdown_conceal = 2
+
+  "Search, Explore and Edit files like Sublime Text
+  Plug 'dyng/ctrlsf.vim'
+  vmap <F3> <Plug>CtrlSFVwordExec
+
+  "Plugin for json syntax highlighting and format
+  Plug 'elzr/vim-json'
+
+  "Plugin for hive syntax
+  Plug 'vickenty/vim-hive'
+
+  "Plugin for python format
+  Plug 'ambv/black'
+  
+  "Vim colorschemes
+  Plug 'flazz/vim-colorschemes'
+
+  "Git for vim
+  Plug 'tpope/vim-fugitive'
+
+  "Syntax for docker
+  Plug 'ekalinin/Dockerfile.vim'
+
+  "Golang plugin
+  Plug 'fatih/vim-go', { 'do': ':GoUpdateBinaries' }
+
+call plug#end()
+
+set number
+set guifont=RobotoMono:h28
+
+"Execute current python file using F2 key"
+autocmd FileType python nnoremap <buffer> <F2> :exec '!python3' shellescape(@%, 1)<cr>
+
+"Execute Black formatter for python files
+autocmd FileType python nnoremap <buffer> <F4> :Black<CR>
+
+"Execute `mix format` for elixir projects
+autocmd FileType elixir nnoremap <buffer> <F4> :exec '!mix format' shellescape(@%, 1)<CR>
+
+"Execute GoFmt for golang files
+autocmd FileType go nnoremap <buffer> <F4> :GoFmt<CR>
+
+"Move lines up/down faster using Shift + Arrow keys"
+nnoremap <C-S-Up> :m-2<CR>
+nnoremap <C-S-Down> :m+<CR>
+inoremap <C-S-Up> <Esc>:m-2<CR>
+inoremap <C-S-Down> <Esc>:m+<CR>
+
+"Color scheme for vim in tmux"
+" set background=dark
+set t_Co=256
+
+"Use sytem clipboard by default"
+set clipboard=unnamedplus  " use the clipboards of vim and win
+colorscheme desert
+set go+=a               " Visual selection automatically copied to the clipboard
+
+"Map jj as escape
+inoremap jj <ESC>
+
+" Search using ag
+map <leader>g :Ag 
