@@ -124,11 +124,19 @@ else:
 `$2
 endsnippet
 
+#snippet dm "Math" wA
+#\[
+#${1:${VISUAL}}
+#.\] $0
+#endsnippet
 snippet dm "Math" wA
-\[
-${1:${VISUAL}}
-.\] $0
+\begin{equation}
+\begin{split}
+	$0
+\end{split}
+\end{equation}
 endsnippet
+
 
 snippet ali "Align" bA
 \begin{align*}
