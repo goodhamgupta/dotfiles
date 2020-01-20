@@ -32,6 +32,8 @@ nmap j gj
 nmap k gk
 let mapleader = ";"
 let g:mapleader = ";"
+let maplocalleader = ';'
+
 
 " Fast save
 nmap <leader>w :w!<cr>
@@ -196,7 +198,7 @@ call plug#begin('~/.vim/plugged')
   let g:tex_flavor='latex' 
   let g:vimtex_quickfix_mode=0
   set conceallevel=1    
-  let g:vimtex_view_method='skim' 
+  let g:vimtex_view_method='zathura'
   let g:tex_conceal='abdmgs'
 
   "Ultisnips to create the snippets for the latex documents"
@@ -257,6 +259,7 @@ call plug#begin('~/.vim/plugged')
 
   "NERDTree for directory and file browsing"
   Plug 'scrooloose/nerdtree'
+  map <C-e> :NERDTreeFind<cr>
   map <C-n> :NERDTreeToggle<CR>
   autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTree") && b:NERDTree.isTabTree()) | q | endif
   let g:NERDTreeDirArrowExpandable = '▸'
