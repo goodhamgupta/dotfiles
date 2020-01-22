@@ -37,6 +37,8 @@ let maplocalleader = ';'
 
 " Fast save
 nmap <leader>w :w!<cr>
+" Fast quit
+nmap <leader>q :q<cr>
 
 " Don't redraw while executing macros (good performance config)
 set lazyredraw 
