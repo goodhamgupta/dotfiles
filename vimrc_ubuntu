@@ -24,7 +24,6 @@ set ruler               " show line and column number of the cursor on right sid
 set visualbell          " blink cursor on error, instead of beeping
 set backspace=indent,eol,start
 
-
 """" Key Bindings
 
 " move vertically by visual line (don't skip wrapped lines)
@@ -156,7 +155,7 @@ autocmd BufWrite *.coffee :call DeleteTrailingWS()
 """" Vim Appearance
 
 " put colorscheme files in ~/.vim/colors/
-colorscheme desert " good colorschemes: murphy, slate, molokai, badwolf, solarized
+colorscheme murphy " good colorschemes: murphy, slate, molokai, badwolf, solarized
 
 " use filetype-based syntax highlighting, ftplugins, and indentation
 syntax enable
@@ -243,22 +242,7 @@ call plug#begin('~/.vim/plugged')
 
   "Programming language syntax for vim"
   Plug 'elixir-lang/vim-elixir'
-  Plug 'vim-python/python-syntax'
-
-  "Linter for python
-  Plug 'nvie/vim-flake8'
-
-  "Fonts for vim"
-  Plug 'powerline/powerline-fonts'
-
-  "vim-tmux for navigation"
-  Plug 'christoomey/vim-tmux-navigator'
-  "Key-mappings to swtich fast in tmux"
-  nnoremap <silent> <c-h> :TmuxNavigateLeft<cr>
-  nnoremap <silent> <c-j> :TmuxNavigateDown<cr>
-  nnoremap <silent> <c-k> :TmuxNavigateUp<cr>
-  nnoremap <silent> <c-l> :TmuxNavigateRight<cr>
-
+  "
   "NERDTree for directory and file browsing"
   Plug 'scrooloose/nerdtree'
   map <C-e> :NERDTreeFind<cr>
@@ -302,6 +286,9 @@ call plug#begin('~/.vim/plugged')
   "Golang plugin
   Plug 'fatih/vim-go', { 'do': ':GoUpdateBinaries' }
 
+  "Plugin to run tests
+  Plug 'janko/vim-test'
+
 call plug#end()
 
 set number
@@ -312,6 +299,9 @@ autocmd FileType python nnoremap <buffer> <F2> :exec '!python3' shellescape(@%, 
 
 "Execute Black formatter for python files
 autocmd FileType python nnoremap <buffer> <F4> :Black<CR>
+
+"Execute pytest for python files
+autocmd FileType python nnoremap <buffer> <F3> :TestFile<CR>
 
 "Execute `mix format` for elixir projects
 autocmd FileType elixir nnoremap <buffer> <F4> :exec '!mix format' shellescape(@%, 1)<CR>
@@ -331,7 +321,7 @@ set t_Co=256
 
 "Use sytem clipboard by default"
 set clipboard=unnamedplus  " use the clipboards of vim and win
-colorscheme desert
+colorscheme gruvbox
 set go+=a               " Visual selection automatically copied to the clipboard
 
 "Map jj as escape
