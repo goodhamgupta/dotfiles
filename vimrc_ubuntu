@@ -111,14 +111,15 @@ map <space> /
 map <c-space> ?
 
 " Disable highlight when <leader><cr> is pressed
-map <silent> <leader><cr> :noh<cr>
+" map <silent> <leader><C> :noh<cr>
 
 " Useful mappings for managing tabs
 map <leader>tn :tabnew<cr>
 map <leader>to :tabonly<cr>
 map <leader>tc :tabclose<cr>
 map <leader>tm :tabmove 
-map <leader>t<leader> :tabnext 
+map <leader>n gt
+map <leader>b gT
 
 " Let 'tl' toggle between this and the last accessed tab
 let g:lasttab = 1
@@ -199,7 +200,7 @@ call plug#begin('~/.vim/plugged')
   let g:tex_flavor='latex' 
   let g:vimtex_quickfix_mode=0
   set conceallevel=1    
-  let g:vimtex_view_method='zathura'
+  let g:vimtex_view_method='zathura' 
   let g:tex_conceal='abdmgs'
 
   "Ultisnips to create the snippets for the latex documents"
@@ -251,6 +252,10 @@ call plug#begin('~/.vim/plugged')
   let g:NERDTreeDirArrowExpandable = '▸'
   let g:NERDTreeDirArrowCollapsible = '▾' 
 
+  "ctrlp helps search for files
+  let g:ctrlp_use_caching = 0
+  let g:ctrlp_working_path_mode = 0
+
   "Golden-ratio helps resize current window automatically"
   Plug 'roman/golden-ratio'
 
@@ -288,7 +293,7 @@ call plug#begin('~/.vim/plugged')
 
   "Plugin to run tests
   Plug 'janko/vim-test'
-
+  
 call plug#end()
 
 set number
