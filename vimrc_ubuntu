@@ -293,6 +293,9 @@ call plug#begin('~/.vim/plugged')
 
   "Plugin to run tests
   Plug 'janko/vim-test'
+
+  "Plugin for rust
+  Plug 'rust-lang/rust.vim'
   
 call plug#end()
 
@@ -313,6 +316,10 @@ autocmd FileType elixir nnoremap <buffer> <F4> :exec '!mix format' shellescape(@
 
 "Execute GoFmt for golang files
 autocmd FileType go nnoremap <buffer> <F4> :GoFmt<CR>
+
+"Rust specific keys
+autocmd FileType rust nnoremap <buffer> <F3> :RustTest<CR>
+autocmd FileType rust nnoremap <buffer> <F4> :RustFmt<CR>
 
 "Move lines up/down faster using Shift + Arrow keys"
 nnoremap <C-S-Up> :m-2<CR>
