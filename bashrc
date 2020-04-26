@@ -120,6 +120,7 @@ function create_env {
     source .env/bin/activate
 }
 export PATH="~/.local/bin/:$PATH"
+export PATH="$HOME/.cargo/bin/:$PATH"
 export PYTHONPATH="${PYTHONPATH}:~/.local/bin/"
 export TASKDDATA="~/taskd/"
 alias pbcopy='xclip -selection clipboard'
