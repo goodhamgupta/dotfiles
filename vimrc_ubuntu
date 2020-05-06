@@ -309,7 +309,7 @@ set guifont=RobotoMono:h28
 autocmd FileType python nnoremap <buffer> <F2> :exec '!python3' shellescape(@%, 1)<cr>
 
 "Execute Black formatter for python files
-autocmd FileType python nnoremap <buffer> <F4> :Black<CR>
+autocmd FileType python nnoremap <buffer> <F4> :exec '!black' shellescape(@%, 1)<CR>
 
 "Execute pytest for python files
 autocmd FileType python nnoremap <buffer> <F3> :TestFile<CR>
