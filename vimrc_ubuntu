@@ -38,7 +38,7 @@ let maplocalleader = ';'
 nmap <leader>w :w!<cr>
 " Fast quit
 nmap <leader>q :q<cr>
-" Fast load
+" Fast load 
 nmap <leader>e :e<cr>
 
 " Don't redraw while executing macros (good performance config)
@@ -164,6 +164,9 @@ colorscheme murphy " good colorschemes: murphy, slate, molokai, badwolf, solariz
 syntax enable
 filetype plugin indent on
 
+" Fixes weird characters appearning on vim screen. See: https://stackoverflow.com/questions/62148994/strange-character-since-last-update-42m-in-vim
+let &t_TI = ""
+let &t_TE = ""
 
 """" Tab settings
 
@@ -204,6 +207,16 @@ call plug#begin('~/.vim/plugged')
   set conceallevel=1    
   let g:vimtex_view_method='zathura' 
   let g:tex_conceal='abdmgs'
+  let g:vimtex_compiler_latexmk = {
+    \ 'options' : [
+    \   '-pdf',
+    \   '-shell-escape',
+    \   '-verbose',
+    \   '-file-line-error',
+    \   '-synctex=1',
+    \   '-interaction=nonstopmode',
+    \ ],
+    \}
 
   "Ultisnips to create the snippets for the latex documents"
 
@@ -218,7 +231,7 @@ call plug#begin('~/.vim/plugged')
   augroup END
 
   Plug 'vim-python/python-syntax'
-  Plug 'psf/black', { 'tag': '18.9b0' }
+  Plug 'psf/black', { 'tag': '19.10b0' }
 
   "Linter for python
   Plug 'nvie/vim-flake8'
@@ -258,6 +271,10 @@ call plug#begin('~/.vim/plugged')
   "ctrlp helps search for files
   let g:ctrlp_use_caching = 0
   let g:ctrlp_working_path_mode = 0
+  let g:ctrlp_cache_dir = $HOME . '/.cache/ctrlp'
+  if executable('ag')
+    let g:ctrlp_user_command = 'ag %s -l --nocolor -g ""'
+  endif
 
   "Golden-ratio helps resize current window automatically"
   Plug 'roman/golden-ratio'
@@ -281,7 +298,7 @@ call plug#begin('~/.vim/plugged')
 
   "Plugin for python format
   Plug 'ambv/black'
-  
+
   "Vim colorschemes
   Plug 'flazz/vim-colorschemes'
 
@@ -291,25 +308,32 @@ call plug#begin('~/.vim/plugged')
   "Syntax for docker
   Plug 'ekalinin/Dockerfile.vim'
 
-  "Golang plugin
-  Plug 'fatih/vim-go', { 'do': ':GoUpdateBinaries' }
-
   "Plugin to run tests
   Plug 'janko/vim-test'
 
   "Plugin for rust
   Plug 'rust-lang/rust.vim'
-  
+
+  "Syntax for language server
+  Plug 'neoclide/coc.nvim', {'branch': 'release'} 
+
+  "Black for formatting
+  Plug 'psf/black', { 'tag': '19.10b0' }
+
+  "Plugin for python autocomplete
+  "Plug 'davidhalter/jedi-vim'
+
+  "let g:pymode_rope = 0
 call plug#end()
 
 set number
 set guifont=RobotoMono:h28
 
 "Execute current python file using F2 key"
-autocmd FileType python nnoremap <buffer> <F2> :exec '!python3' shellescape(@%, 1)<cr>
+autocmd FileType python nnoremap <buffer> <F2> :exec '!python' shellescape(@%, 1)<cr>
 
 "Execute Black formatter for python files
-autocmd FileType python nnoremap <buffer> <F4> :exec '!black' shellescape(@%, 1)<CR>
+autocmd FileType python nnoremap <buffer> <F4> :Black<CR>
 
 "Execute pytest for python files
 autocmd FileType python nnoremap <buffer> <F3> :TestFile<CR>
@@ -343,4 +367,9 @@ set go+=a               " Visual selection automatically copied to the clipboard
 inoremap jj <ESC>
 
 " Search using ag
-map <leader>g :Ag 
+map <leader>f :Ag 
+
+" Auto spell correct for notes
+setlocal spell
+set spelllang=nl,en_gb
+inoremap <C-l> <c-g>u<Esc>[s1z=`]a<c-g>u
