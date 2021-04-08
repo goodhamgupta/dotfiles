@@ -3,8 +3,6 @@ export PATH=$PATH:$GOROOT/bin:$GOPATH/bin
 export LC_ALL=en_US.UTF-8
 export LANG=en_US.UTF-8
 export LIBRARY_PATH=$LIBRARY_PATH:/usr/local/opt/openssl/lib/ 
-alias kcprod="AWS_PROFILE=production KUBECONFIG=~/.kube/config.prod kubectl"
-alias hlprod="AWS_PROFILE=production KUBECONFIG=~/.kube/config.prod helm"
 alias tn="TERM=screen-256color-bce tmux new -s"
 alias tl="tmux list-sessions"
 alias ta="tmux attach -t"
@@ -54,7 +52,7 @@ fi
 IFS=$SAVEIFS
 
 # Color schemes for terminal
-export PS1="\[\033[36m\]\u\[\033[m\]\[\033[32m\]:\[\033[33;1m\]\w\[\033[m\]\$(__git_ps1) "
+export PS1="\[\033[36m\]\[\033[m\]\[\033[32m\]\[\033[33;1m\]\w\[\033[m\]\$(__git_ps1) "
 export CLICOLOR=1
 export LSCOLORS=ExFxBxDxCxegedabagacad
 
@@ -116,18 +114,38 @@ function disconnect_airpods {
     bluetoothctl disconnect 88:64:40:B8:89:75
 }
 function create_env {
-    python3 -m venv .env
+    python -m venv .env
     source .env/bin/activate
+    pip3 install --upgrade pip
+}
+function set_brightness {
+    xrandr --output HDMI-1 --brightness $1
+}
+function start_recording {
+    ffmpeg -video_size 1920x1080 -framerate 128 -f x11grab -i :0.0+0,0 -c:v libx264rgb -crf 0 -preset ultrafast $1
+}
+
+function cvpn {
+    nmcli con up id $1
+}
+function dvpn {
+    name=$(eval nmcli con show --active | egrep vpn | awk '{print $1}')
+    nmcli con down id $name
 }
 export PATH="~/.local/bin/:$PATH"
 export PATH="$HOME/.cargo/bin/:$PATH"
+export PATH="$PATH:~/julia-1.5.2/bin"
 export PYTHONPATH="${PYTHONPATH}:~/.local/bin/"
 export TASKDDATA="~/taskd/"
+export PROMPT_DIRTRIM=2
 alias pbcopy='xclip -selection clipboard'
 alias pbpaste='xclip -selection clipboard -o'
 alias open='xdg-open'
+export AIRFLOW_HOME=~/shubham/mars
 
 . $HOME/.asdf/completions/asdf.bash
 
 . $HOME/.asdf/asdf.sh
 
+[[ -s /home/goodhamgupta/.autojump/etc/profile.d/autojump.sh ]] && source /home/goodhamgupta/.autojump/etc/profile.d/autojump.sh
+source /opt/ros/melodic/setup.bash
