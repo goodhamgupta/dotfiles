@@ -237,6 +237,8 @@ call plug#begin('~/.vim/plugged')
   Plug 'nvie/vim-flake8'
 
   "Fonts for vim"
+  Plug 'vim-airline/vim-airline'
+  Plug 'vim-airline/vim-airline-themes'
   Plug 'powerline/powerline-fonts'
 
   "vim-tmux for navigation"
@@ -324,6 +326,11 @@ call plug#begin('~/.vim/plugged')
   "Plug 'davidhalter/jedi-vim'
 
   "let g:pymode_rope = 0
+ 
+  "Plugin for terraform
+  Plug 'hashivim/vim-terraform'
+  let g:terraform_align=1
+  let g:terraform_fmt_on_save=1
 call plug#end()
 
 set number
@@ -357,10 +364,11 @@ inoremap <C-S-Down> <Esc>:m+<CR>
 "Color scheme for vim in tmux"
 " set background=dark
 set t_Co=256
+set term=screen-256color
 
 "Use sytem clipboard by default"
 set clipboard=unnamedplus  " use the clipboards of vim and win
-colorscheme gruvbox
+colorscheme gruvbox " good colorschemes: murphy, slate, molokai, badwolf, solarized
 set go+=a               " Visual selection automatically copied to the clipboard
 
 "Map jj as escape
