@@ -45,6 +45,19 @@
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Sets how many lines of history VIM has to remember
 set history=500
+"Note: install vim-plug if not present
+if empty(glob('~/.config/nvim/autoload/plug.vim'))
+silent !curl -fLo ~/.config/nvim/autoload/plug.vim --create-dirs https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
+autocmd VimEnter * PlugInstall
+endif
+
+"Note: Skip initialization for vim-tiny or vim-small.
+if !1 | finish | endif
+if has('vim_starting')
+set nocompatible               " Be iMproved
+" Required:
+call plug#begin()
+endif
 
 " Enable filetype plugins
 filetype plugin on
@@ -60,6 +73,7 @@ let g:mapleader = ";"
 
 " Fast saving
 nmap <leader>w :w!<cr>
+nmap <leader>q :qa!<cr>
 
 " :W sudo saves the file 
 " (useful for handling the permission-denied error)
@@ -424,7 +438,6 @@ endfunction
 if has("autocmd")
    au BufReadPost * if line("'\"") > 1 && line("'\"") <= line("$") | exe "normal! g'\"" | endif
 endif
-execute pathogen#infect()
 if exists("did_load_csvfiletype")
   finish
 endif
@@ -450,7 +463,7 @@ call plug#begin('~/.vim/plugged')
   let g:UltiSnipsExpandTrigger = '<tab>'
   let g:UltiSnipsJumpForwardTrigger = '<tab>'
   let g:UltiSnipsJumpBackwardTrigger = '<S-Tab>'
-  let g:UltiSnipsSnippetDirectories=["/Users/shubham/ultisnips", "UltiSnips"]
+  let g:UltiSnipsSnippetDirectories=["/Users/Shubham/ultisnips", "UltiSnips"]
   augroup ultisnips_no_auto_expansion
     au!
     au VimEnter * au! UltiSnips_AutoTrigger
@@ -520,11 +533,12 @@ call plug#begin('~/.vim/plugged')
 
   "Plugin for git in vim
   Plug 'tpope/vim-fugitive'
+  Plug 'morhetz/gruvbox'
 
 call plug#end()
 
 set number
-colorscheme materialbox
+colorscheme gruvbox
 set guifont=RobotoMono:h28
 
 "Execute current python file using F2 key"
