@@ -18,6 +18,7 @@ export LIBRARY_PATH=$LIBRARY_PATH:/usr/local/opt/openssl/lib/
 
 alias kcprod="AWS_PROFILE=production KUBECONFIG=~/.kube/config.prod kubectl"
 alias hlprod="AWS_PROFILE=production KUBECONFIG=~/.kube/config.prod helm"
+alias k="kubectl"
 alias tn="TERM=screen-256color-bce tmux new -s"
 alias ta="tmux a -t"
 #!/bin/bash
@@ -26,6 +27,12 @@ alias ta="tmux a -t"
 SAVEIFS=$IFS
 IFS=$(echo -en "\n\b")
 
+function connect_airpods { 
+    BluetoothConnector 88-64-40-b8-89-75
+}
+function disconnect_airpods {
+    BluetoothConnector --disconnect 88-64-40-b8-89-75
+}
 function extract {
  if [ -z "$1" ]; then
     # display usage if no parameters given
@@ -70,20 +77,11 @@ parse_git_branch() {
      git branch 2> /dev/null | sed -e '/^[^*]/d' -e 's/* \(.*\)/ (\1)/'
 }
 
-function git_current_branch() {
-  local ref
-  ref=$(command git symbolic-ref --quiet HEAD 2> /dev/null)
-  local ret=$?
-  if [[ $ret != 0 ]]; then
-    [[ $ret == 128 ]] && return  # no git repo.
-    ref=$(command git rev-parse --short HEAD 2> /dev/null) || return
-  fi
-  echo ${ref#refs/heads/}
-}
-
 export CLICOLOR=1
-export LSCOLORS=ExFxBxDxCxegedabagacad
-# export PS1="\[\033[36m\]\u\[\033[m\]@\[\033[32m\]\h:\[\033[33;1m\]\w\[\033[m\]\$"
+export LSCOLORS="Gxfxcxdxbxegedabagacad"
+
+# Use mvim as vim default
+alias vim="mvim -v" 
 
 # ZSH bindings for git.
 
@@ -116,9 +114,23 @@ alias gm="git merge"
 alias gma="git merge --abort"
 alias gp="git push"
 alias gwip="git add -A; git ls-files --deleted -z | xargs -r0 git rm; git commit -m "--wip--""
-alias ggpush="git push -u origin $(git_current_branch)"
+alias ggpush="git push -u origin $__git_ps1"
 
 # Brew bash autocomplete
 if [ -f $(brew --prefix)/etc/bash_completion ]; then
 . $(brew --prefix)/etc/bash_completion
 fi
+
+alias ls="ls"
+export PATH="${KREW_ROOT:-$HOME/.krew}/bin:$PATH"
+export JAVA_HOME="/Library/Java/JavaVirtualMachines/jdk-16.0.1.jdk/Contents/Home"
+export M2_HOME="/Users/Shubham/utils/maven/apache-maven-3.8.1"
+
+# Environment configurations
+export AWS_USERNAME=shubham.gupta
+export AWS_FEDERATED_LOGIN=~/aaqua/devops-tools/aws-access/aws_federated_login.py
+alias mothership="export AWS_PROFILE=mothership && $AWS_FEDERATED_LOGIN -a mothership -r altec -u $AWS_USERNAME -w"
+alias tardis="export AWS_PROFILE=tardis && $AWS_FEDERATED_LOGIN -a tardis -r altec -u $AWS_USERNAME -w"
+alias sulaco="export AWS_PROFILE=sulaco && $AWS_FEDERATED_LOGIN -a sulaco -r altec -u $AWS_USERNAME -w"
+alias auriga="export AWS_PROFILE=auriga && $AWS_FEDERATED_LOGIN -a integration -r altec -u $AWS_USERNAME -w"
+alias playground="export AWS_PROFILE=playground && $AWS_FEDERATED_LOGIN -a playground -r altec -u $AWS_USERNAME -w"
