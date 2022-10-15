@@ -91,6 +91,10 @@ export LS_OPTIONS='--color=auto'
 alias ls='ls $LS_OPTIONS'
 
 # Set oranization specific git config
+function set_git_org {
+    git config user.name 'Shubham Gupta'
+    git config user.email 'shubham.gupta@temus.com'
+}
 
 function install_pip {
     curl https://bootstrap.pypa.io/get-pip.py | python3
