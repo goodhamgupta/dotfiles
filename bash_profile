@@ -4,16 +4,13 @@ export MANPATH=/usr/local/openssl/share/man:$MANPATH
 export PATH=~/bin:$PATH
 export PATH=/usr/local/Cellar/elasticsearch/5.1.1/bin:$PATH
 export PATH=/usr/local/opt/mysql@5.6/bin:$PATH
-export PATH="/Users/shubham/.local/lib/aws/bin/:$PATH"
+export PATH="~/.local/lib/aws/bin/:$PATH"
 
-export PATH="/Users/shubham/bin/:$PATH"
+export PATH="~/bin/:$PATH"
 export GOPATH=$HOME/go
 export PATH=$PATH:$GOROOT/bin:$GOPATH/bin
 export LC_ALL=en_US.UTF-8
 export LANG=en_US.UTF-8
-. $HOME/.asdf/asdf.sh
-
-. $HOME/.asdf/completions/asdf.bash
 export LIBRARY_PATH=$LIBRARY_PATH:/usr/local/opt/openssl/lib/
 
 alias kcprod="AWS_PROFILE=production KUBECONFIG=~/.kube/config.prod kubectl"
@@ -123,14 +120,8 @@ fi
 
 alias ls="ls"
 export PATH="${KREW_ROOT:-$HOME/.krew}/bin:$PATH"
-export JAVA_HOME="/Library/Java/JavaVirtualMachines/jdk-16.0.1.jdk/Contents/Home"
-export M2_HOME="/Users/Shubham/utils/maven/apache-maven-3.8.1"
 
 # Environment configurations
-export AWS_USERNAME=shubham.gupta
-export AWS_FEDERATED_LOGIN=~/aaqua/devops-tools/aws-access/aws_federated_login.py
-alias mothership="export AWS_PROFILE=mothership && $AWS_FEDERATED_LOGIN -a mothership -r altec -u $AWS_USERNAME -w"
-alias tardis="export AWS_PROFILE=tardis && $AWS_FEDERATED_LOGIN -a tardis -r altec -u $AWS_USERNAME -w"
-alias sulaco="export AWS_PROFILE=sulaco && $AWS_FEDERATED_LOGIN -a sulaco -r altec -u $AWS_USERNAME -w"
-alias auriga="export AWS_PROFILE=auriga && $AWS_FEDERATED_LOGIN -a integration -r altec -u $AWS_USERNAME -w"
-alias playground="export AWS_PROFILE=playground && $AWS_FEDERATED_LOGIN -a playground -r altec -u $AWS_USERNAME -w"
+eval $(gdircolors ~/.dircolors/dircolors.256dark)
+alias ls='gls --color=auto'
+alias ll='ls -al'

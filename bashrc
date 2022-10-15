@@ -6,7 +6,6 @@ export LIBRARY_PATH=$LIBRARY_PATH:/usr/local/opt/openssl/lib/
 alias tn="TERM=screen-256color-bce tmux new -s"
 alias tl="tmux list-sessions"
 alias ta="tmux attach -t"
-source ~/.git_prompt.sh
 
 # function Extract for common file formats
 
@@ -52,7 +51,6 @@ fi
 IFS=$SAVEIFS
 
 # Color schemes for terminal
-export PS1="\[\033[36m\]\[\033[m\]\[\033[32m\]\[\033[33;1m\]\w\[\033[m\]\$(__git_ps1) "
 export CLICOLOR=1
 export LSCOLORS=ExFxBxDxCxegedabagacad
 
@@ -90,15 +88,10 @@ alias gma="git merge --abort"
 alias gp="git push"
 alias gwip="git add -A; git ls-files --deleted -z | xargs -r0 git rm; git commit -m "--wip--""
 export LS_OPTIONS='--color=auto'
-eval "$(dircolors -b)"
 alias ls='ls $LS_OPTIONS'
 
 # Set oranization specific git config
 
-function set_git_org {
-    git config user.name 'Shubham Gupta'
-    git config user.email 'shubham@radicali.io'
-}
 function install_pip {
     curl https://bootstrap.pypa.io/get-pip.py | python3
 }
@@ -141,11 +134,5 @@ export PROMPT_DIRTRIM=2
 alias pbcopy='xclip -selection clipboard'
 alias pbpaste='xclip -selection clipboard -o'
 alias open='xdg-open'
-export AIRFLOW_HOME=~/shubham/mars
 
-. $HOME/.asdf/completions/asdf.bash
-
-. $HOME/.asdf/asdf.sh
-
-[[ -s /home/goodhamgupta/.autojump/etc/profile.d/autojump.sh ]] && source /home/goodhamgupta/.autojump/etc/profile.d/autojump.sh
-source /opt/ros/melodic/setup.bash
+[[ -s ~/.autojump/etc/profile.d/autojump.sh ]] && source ~/.autojump/etc/profile.d/autojump.sh
