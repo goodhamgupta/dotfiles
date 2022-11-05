@@ -1,0 +1,70 @@
+{
+  "workbench.startupEditor": "none",
+  "editor.bracketPairColorization.enabled": true,
+  "editor.fontSize": 16,
+  "vim.insertModeKeyBindings": [
+    {
+      "after": [
+        "<esc>"
+      ],
+      "before": [
+        "j",
+        "j"
+      ]
+    }
+  ],
+  "vim.vimrc.path": "~\/.vimrc",
+  "vim.useSystemClipboard": true,
+  "github.copilot.enable": {
+    "*": true,
+    "markdown": false,
+    "python": false,
+    "elixir": false,
+    "rust": true,
+    "golang": true,
+    "pip-requirements": false,
+    "plaintext": false,
+    "yaml": false,
+    "cpp": false
+  },
+  "editor.suggestSelection": "first",
+  "editor.inlineSuggest.enabled": true,
+  "python.venvPath": ".\/.env",
+  "files.exclude": {
+    "**\/.env": true,
+    "**\/.project": true,
+    "**\/.classpath": true,
+    "**\/.settings": true,
+    "**\/.factorypath": true
+  },
+  "vim.statusBarColors.visualline": "#005f5f",
+  "python.venvFolders": [
+    ".env",
+    ".venv",
+    "\/Users\/Shubham\/aaqua\/embedding.indexer\/"
+  ],
+  "vsintellicode.modify.editor.suggestSelection": "automaticallyOverrodeDefaultValue",
+  "files.autoSave": "afterDelay",
+  "github.copilot.inlineSuggest.enable": true,
+  "editor.formatOnSave": true,
+  "editor.largeFileOptimizations": false,
+  "editor.codeActionsOnSave": {
+    "source.organizeImports": true
+  },
+  "editor.accessibilitySupport": "off",
+  "githubIssues.queries": [
+    {
+      "label": "My Issues",
+      "query": "default"
+    },
+    {
+      "label": "Created Issues",
+      "query": "author:${user} state:open repo:${owner}\/${repository} sort:created-desc"
+    }
+  ],
+  "terminal.integrated.env.osx": {
+    "FIG_NEW_SESSION": "1"
+  },
+  "java.configuration.runtimes": [],
+  "java.jdt.ls.vmargs": "-XX:+UseParallelGC -XX:GCTimeRatio=4 -XX:AdaptiveSizePolicyWeight=90 -Dsun.zip.disableMemoryMapping=true -Xmx1G -Xms100m -javaagent:\"/Users/Shubham/.vscode/extensions/vscjava.vscode-lombok-1.0.1/server/lombok.jar\""
+}
