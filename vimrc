@@ -472,9 +472,12 @@ call plug#begin('~/.vim/plugged')
   let $FZF_DEFAULT_COMMAND = 'ag --hidden --ignore .git -l -g ""'
 
   "Programming language syntax for vim"
-  Plug 'elixir-lang/vim-elixir'
+  Plug 'elixir-editors/vim-elixir'
+  Plug 'elixir-lsp/coc-elixir', {'do': 'yarn install && yarn prepack'}
   Plug 'vim-python/python-syntax'
   let g:pymode_python = 'python3'
+  Plug 'rust-lang/rust.vim'
+  let g:rustfmt_autosave = 1
 
   "Linter for python
   Plug 'nvie/vim-flake8'
@@ -581,6 +584,15 @@ autocmd FileType python nnoremap <buffer> <F4> :exec '!python -m black' shellesc
 
 "Execute `mix format` for elixir projects
 autocmd FileType elixir nnoremap <buffer> <F4> :exec '!mix format' shellescape(@%, 1)<CR>
+
+"Execute current rust file using F2 key"
+autocmd FileType rust nnoremap <buffer> <F2> :RustRun<CR>
+
+"Execute tests for rust files
+autocmd FileType rust nnoremap <buffer> <F3> :RustTest<CR>
+
+"Execute rustfmt for rust projects
+autocmd FileType rust nnoremap <buffer> <F4> :RustFmt<CR>
 
 "Move lines up/down faster using Shift + Arrow keys"
 nnoremap <C-S-Up> :m-2<CR>
