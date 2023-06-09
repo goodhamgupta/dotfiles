@@ -26,9 +26,9 @@
 " Sets how many lines of history VIM has to remember
 set history=500
 "Note: install vim-plug if not present
-if empty(glob('~/.config/nvim/autoload/plug.vim'))
-    silent !curl -fLo ~/.config/nvim/autoload/plug.vim --create-dirs https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
-    autocmd VimEnter * PlugInstall
+if empty(glob('~/.vim/autoload/plug.vim'))
+silent !curl -fLo ~/.vim/autoload/plug.vim --create-dirs https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
+autocmd VimEnter * PlugInstall
 endif
 
 "Note: Skip initialization for vim-tiny or vim-small.
@@ -232,8 +232,8 @@ map <leader>h :bprevious<cr>
 map <leader>tn :tabnew<cr>
 map <leader>to :tabonly<cr>
 map <leader>tc :tabclose<cr>
-map <leader>tm :tabmove 
-map <leader>t<leader> :tabnext 
+map <leader>tm :tabmove
+map <leader>t<leader> :tabnext
 
 " Let 'tl' toggle between this and the last accessed tab
 let g:lasttab = 1
@@ -248,7 +248,7 @@ map <leader>te :tabedit <c-r>=expand("%:p:h")<cr>/
 " Switch CWD to the directory of the open buffer
 map <leader>cd :cd %:p:h<cr>:pwd<cr>
 
-" Specify the behavior when switching between buffers 
+" Specify the behavior when switching between buffers
 try
   set switchbuf=useopen,usetab,newtab
   set stal=2
@@ -321,7 +321,6 @@ map <leader>co ggVGy:tabnew<cr>:set syntax=qf<cr>pgg
 map <leader>n :cn<cr>
 map <leader>p :cp<cr>
 
-
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => Spell checking
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -360,7 +359,7 @@ function! CmdLine(str)
     exe "menu Foo.Bar :" . a:str
     emenu Foo.Bar
     unmenu Foo
-endfunction 
+endfunction
 
 function! VisualSelection(direction, extra_filter) range
     let l:saved_reg = @"
@@ -518,10 +517,6 @@ call plug#begin('~/.vim/plugged')
 
   "Plugin to run tests
   Plug 'janko/vim-test'
-
-  "Plugin vim-airline for themes
-  Plug 'vim-airline/vim-airline'
-  Plug 'vim-airline/vim-airline-themes'
 
   "Plugin for git in vim
   Plug 'tpope/vim-fugitive'
@@ -694,51 +689,3 @@ function! s:show_documentation()
     execute '!' . &keywordprg . " " . expand('<cword>')
   endif
 endfunction
-
-" Highlight the symbol and its references when holding the cursor.
-
-" Symbol renaming.
-
-" Formatting selected code.
-
-augroup mygroup
-  autocmd!
-  " Setup formatexpr specified filetype(s).
-  " Update signature help on jump placeholder.
-augroup end
-
-" Applying codeAction to the selected region.
-" Example: `<leader>aap` for current paragraph
-
-" Remap keys for applying codeAction to the current buffer.
-" Apply AutoFix to problem on the current line.
-
-" Run the Code Lens action on the current line.
-
-" Map function and class text objects
-" NOTE: Requires 'textDocument.documentSymbol' support from the language server.
-
-" Remap <C-f> and <C-b> for scroll float windows/popups.
-if has('nvim-0.4.0') || has('patch-8.2.0750')
-endif
-
-" Use CTRL-S for selections ranges.
-" Requires 'textDocument/selectionRange' support of language server.
-
-" Add `:Format` command to format current buffer.
-
-" Add `:Fold` command to fold current buffer.
-
-" Add `:OR` command for organize imports of the current buffer.
-
-" Add (Neo)Vim's native statusline support.
-" provide custom statusline: lightline.vim, vim-airline.
-
-" Show all diagnostics.
-" Manage extensions.
-" Show commands.
-" Find symbol of current document.
-" Search workspace symbols.
-" Do default action for next item.
-" Do default action for previous item.
-
