@@ -1,0 +1,82 @@
+---@type LazySpec
+return {}
+--- return {
+---   "nvim-focus/focus.nvim",
+---   version = "*",
+---   lazy = false,
+---   opts = {
+---     autoresize = {
+---       enable = true,
+---       width = 100,
+---       height = 25,
+---       minwidth = 20,
+---       minheight = 5,
+---       height_quickfix = 10,
+---     },
+---     split = {
+---       bufnew = false,
+---       tmux = false,
+---     },
+---     ui = {
+---       number = false,
+---       relativenumber = true,
+---       hybridnumber = true,
+---       absolutenumber_unfocussed = false,
+---       cursorline = true,
+---       cursorcolumn = false,
+---       colorcolumn = {
+---         enable = false,
+---       },
+---       signcolumn = true,
+---       winhighlight = false,
+---     },
+---   },
+---   config = function(_, opts)
+---     local focus = require("focus")
+---     focus.setup(opts)
+---     
+---     -- Disable focus for certain filetypes and buffer names
+---     local ignore_filetypes = { 
+---       'NvimTree', 'neo-tree', 'avante', 'nui-tree', 'nui-split', 
+---       'telescope', 'alpha', 'dashboard', 'Outline' 
+---     }
+---     local ignore_buftypes = { 
+---       'nofile', 'prompt', 'popup', 'terminal' 
+---     }
+---     
+---     -- Custom function to check if we should disable focus
+---     local function should_disable_focus()
+---       local buftype = vim.bo.buftype
+---       local filetype = vim.bo.filetype
+---       local bufname = vim.fn.bufname('%')
+---       
+---       -- Check buffer types
+---       for _, bt in ipairs(ignore_buftypes) do
+---         if buftype == bt then return true end
+---       end
+---       
+---       -- Check filetypes
+---       for _, ft in ipairs(ignore_filetypes) do
+---         if filetype == ft then return true end
+---       end
+---       
+---       -- Check buffer names for specific patterns
+---       if bufname:match('avante://') or bufname:match('NvimTree') then
+---         return true
+---       end
+---       
+---       return false
+---     end
+---     
+---     -- Disable focus when entering certain windows
+---     vim.api.nvim_create_autocmd({ "WinEnter", "BufWinEnter" }, {
+---       callback = function()
+---         if should_disable_focus() then
+---           focus.focus_disable()
+---         else
+---           focus.focus_enable()
+---         end
+---       end,
+---     })
+---   end,
+--- }
