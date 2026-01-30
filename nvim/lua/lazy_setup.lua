@@ -26,6 +26,8 @@ require("lazy").setup({
         "tarPlugin",
         "tohtml",
         "zipPlugin",
+        "tutor",
+        "spellfile",
       },
     },
   },

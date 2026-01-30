@@ -26,5 +26,3 @@ end
 require "lazy_setup"
 require "polish"
 
-require('amp').setup({ auto_start = true, log_level = "info" })
-
