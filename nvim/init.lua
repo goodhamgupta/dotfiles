@@ -10,8 +10,14 @@ vim.opt.rtp:prepend(lazypath)
 -- Leader
 vim.g.mapleader = ';'
 
+-- Add asdf shims to PATH for LSP servers
+local asdf_shims = vim.fn.expand("~/.asdf/shims")
+if vim.fn.isdirectory(asdf_shims) == 1 then
+  vim.env.PATH = asdf_shims .. ":" .. vim.env.PATH
+end
+
 -- NeoTree
-vim.keymap.set('n', '<C-e>', '<Cmd>Neotree toggle<CR>', { silent = true })
+vim.keymap.set('n', '<C-e>', '<Cmd>Neotree toggle position=right<CR>', { silent = true })
 
 --Telescope
 
