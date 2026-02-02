@@ -38,6 +38,7 @@ return {
         -- configure global vim variables (vim.g)
         -- NOTE: `mapleader` and `maplocalleader` must be set in the AstroNvim opts or before `lazy.setup`
         -- This can be found in the `lua/lazy_setup.lua` file
+        python3_host_prog = vim.fn.expand("~/.asdf/shims/python3"),
       },
     },
     -- Mappings can be configured through AstroCore as well.
@@ -67,6 +68,9 @@ return {
 
         -- setting a mapping to false will disable it
         -- ["<C-S>"] = false,
+
+        -- Ctrl+P to open file finder (like <leader>ff)
+        ["<C-p>"] = { function() require("telescope.builtin").find_files() end, desc = "Find files" },
       },
     },
   },
