@@ -74,6 +74,20 @@ return {
 
         -- Search through codebase
         ["<Leader>f"] = { function() require("telescope.builtin").live_grep() end, desc = "Search codebase" },
+
+        -- Format Python with ruff (format, fix imports, auto-fix)
+        ["<F4>"] = {
+          function()
+            local file = vim.api.nvim_buf_get_name(0)
+            if file == "" then return end
+            vim.cmd("silent write")
+            vim.fn.system({ "ruff", "check", "--select", "I", "--fix", file })
+            vim.fn.system({ "ruff", "check", "--fix", file })
+            vim.fn.system({ "ruff", "format", file })
+            vim.cmd("edit")
+          end,
+          desc = "Format with ruff",
+        },
       },
     },
   },
