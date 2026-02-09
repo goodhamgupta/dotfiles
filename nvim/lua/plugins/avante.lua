@@ -18,11 +18,12 @@ return {
     providers = {
       claude = {
         endpoint = "https://api.anthropic.com",
+        auth_type = "max",
         model = "claude-sonnet-4-5-20250929",
-        timeout = 30000, -- Timeout in milliseconds
+        timeout = 30000,
           extra_request_body = {
             temperature = 0.75,
-            max_tokens = 131072,
+            max_tokens = 64000,
           },
       }
     },
@@ -40,7 +41,6 @@ return {
           args = { "@zed-industries/claude-code-acp" },
           env = {
             NODE_NO_WARNINGS = "1",
-            ANTHROPIC_API_KEY = os.getenv("ANTHROPIC_API_KEY"),
           },
         },
         ["goose"] = {
@@ -51,7 +51,6 @@ return {
           command = "codex-acp",
           env = {
             NODE_NO_WARNINGS = "1",
-            OPENAI_API_KEY = os.getenv("OPENAI_API_KEY"),
           },
         },
       },

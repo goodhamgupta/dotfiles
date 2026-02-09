@@ -71,6 +71,9 @@ return {
 
         -- Ctrl+P to open file finder (like <leader>ff)
         ["<C-p>"] = { function() require("telescope.builtin").find_files() end, desc = "Find files" },
+
+        -- Search through codebase
+        ["<Leader>f"] = { function() require("telescope.builtin").live_grep() end, desc = "Search codebase" },
       },
     },
   },
